@@ -1,13 +1,15 @@
 const mongoose= require('mongoose')
 const {Schema} = mongoose
+const crypto = require('crypto')
 
 const userSchema = new Schema({
      email: {type: String, required:true,unique:true},
-     password: {type: String, required:true},
+     password: {type: Buffer, required:true},
      role: {type: String, required:true,default:'user'},
      addresses: {type: [Schema.Types.Mixed]},
      name: {type: String},
      orders: {type: [Schema.Types.Mixed]},
+     salt: {type:Buffer}
      
 
 })

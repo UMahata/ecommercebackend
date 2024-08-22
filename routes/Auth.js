@@ -1,11 +1,13 @@
 const express = require('express')
 const { fetchUserById, updateUser } = require('../controller/User')
-const { createUser ,loginUser } = require('../controller/Auth')
-
+const { createUser ,loginUser, checkUser } = require('../controller/Auth')
+const passport = require('passport')
 const router = express.Router()
 
 router
-      .post('/signup',createUser).post('/login', loginUser)
+      .post('/signup',createUser)
+      .post('/login',passport.authenticate("local"), loginUser)
+      .get('/check',passport.authenticate("jwt"), checkUser)
       
 
 exports.router = router
