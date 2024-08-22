@@ -35,6 +35,8 @@ opts.secretOrKey = SECRET_KEY;
 
 
 // midlleware for post products
+
+server.use(express.static('build'))
 server.use(session({
     secret: 'keyboard cat',
     resave: false, // don't save session if unmodified
@@ -80,7 +82,7 @@ passport.use('local',new LocalStrategy(
 
             const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-            done(null,token)
+            done(null,{token})
           
             
                  })   
@@ -104,7 +106,9 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
             // or you could create a new account
         }
     }catch(err){
+     
         return done(err, false);
+        
     }  
 }));
 
