@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const { createProduct } = require('./controller/Product')
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
 
 const server = express()
 const cors = require('cors')
@@ -16,6 +17,7 @@ const SECRET_KEY = 'SECRET_KEY'
 
 
 
+
 const productRouters = require('./routes/Products')
 const categoriesRouters = require('./routes/Categories')
 const brandsRouters = require('./routes/Brands')
@@ -25,11 +27,14 @@ const cartRouters = require('./routes/Cart')
 const ordersRouters = require('./routes/Order')
 const { User } = require('./model/User')
 const crypto = require("crypto");
-const { isAuth, sanitizeUser } = require('./services/common')
+const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common')
+
+
+
 
 //jwt options
 const opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor
 opts.secretOrKey = SECRET_KEY;
 
 
@@ -37,11 +42,13 @@ opts.secretOrKey = SECRET_KEY;
 // midlleware for post products
 
 server.use(express.static('build'))
+server.use(cookieParser())
 server.use(session({
     secret: 'keyboard cat',
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
   }));
+ 
   server.use(passport.authenticate('session'));
   
 
@@ -98,7 +105,8 @@ passport.use('local',new LocalStrategy(
 passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
     console.log({jwt_payload})
     try{
-        const user = await User.findOne({id: jwt_payload.sub}) 
+        const user = await User.findById(jwt_payload.id)
+        console.log("first",jwt_payload.id)
         if (user) {
             return done(null,sanitizeUser(user) );
         } else {
@@ -114,14 +122,12 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
 
 
   passport.serializeUser(function(user, cb) {
-    console.log('cerilizez',user)
     process.nextTick(function() {
       return cb(null,{id:user.id,role:user.role} );
     });
   });
   //this create session variable req.user on being called from
   passport.deserializeUser(function(user, cb) {
-    console.log('de-cerilizez',user)
 
     process.nextTick(function() { 
       return cb(null, user);
