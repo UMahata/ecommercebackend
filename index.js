@@ -90,7 +90,7 @@ passport.use('local',new LocalStrategy(
               return done(null,false,{message:'invalid credentials'})
             }
 
-            const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
+            const token =  jwt.sign(sanitizeUser(user), SECRET_KEY);
 
             done(null,{token,id:user.id,role:user.role})
           
