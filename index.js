@@ -92,7 +92,7 @@ passport.use('local',new LocalStrategy(
 
             const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-            done(null,{...token,id:user.id,role:user.role})
+            done(null,{token,id:user.id,role:user.role})
           
             
                  })   
