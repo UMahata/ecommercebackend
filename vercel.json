@@ -12,12 +12,14 @@
 
     
   
+    "routes":[ { "source": "/(.*)", "destination": "/" }],
     "redirects": [
         {
           "source": "/(.*)",
           "destination": "/"
         }
       ]
+    
     
 
   
