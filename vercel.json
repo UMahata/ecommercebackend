@@ -11,8 +11,7 @@
     ],
 
     
-  
-    "routes":[ { "source": "/(.*)", "destination": "/" }],
+  "rewrites":[ { "source": "/(.*)", "destination": "/" }],
     "redirects": [
         {
           "source": "/(.*)",
