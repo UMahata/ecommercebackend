@@ -50,8 +50,10 @@ exports.fetchAllProducts = async(req,res)=>{
    
 }
 exports.fetchProductById = async(req,res)=>{
+
     
     const{id}=req.params
+    console.log("id",id)
     try{
         
         const product = await Product.findById(id)

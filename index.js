@@ -92,7 +92,7 @@ passport.use('local',new LocalStrategy(
 
             const token =  jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-            done(null,{token,id:user.id,role:user.role})
+            done(null,{id:user.id,role:user.role})
           
             
                  })   
@@ -104,6 +104,8 @@ passport.use('local',new LocalStrategy(
        
 }
   ));
+
+
 
 passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
     console.log({jwt_payload})
