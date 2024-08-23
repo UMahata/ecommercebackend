@@ -28,6 +28,7 @@ const ordersRouters = require('./routes/Order')
 const { User } = require('./model/User')
 const crypto = require("crypto");
 const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common')
+const path = require('path')
 
 
 
@@ -41,7 +42,7 @@ opts.secretOrKey = SECRET_KEY;
 
 // midlleware for post products
 
-server.use(express.static('build'))
+server.use(express.static(path.resolve(__dirname,'build')))
 server.use(cookieParser())
 server.use(session({
     secret: 'keyboard cat',
@@ -89,7 +90,7 @@ passport.use('local',new LocalStrategy(
 
             const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-            done(null,{id:user.id,role:user.role})
+            done(null,{...token,id:user.id,role:user.role})
           
             
                  })   
