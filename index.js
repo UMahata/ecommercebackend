@@ -57,13 +57,14 @@ server.use(session({
 
 server.use(cors({exposedHeaders:['X-Total-Count']}))
 server.use(express.json())
-server.use('/products',isAuth(),productRouters.router)
-server.use('/categories',isAuth(),categoriesRouters.router)
-server.use('/brands',isAuth(),brandsRouters.router)
-server.use('/users',isAuth(),usersRouters.router)
+server.use('/products',productRouters.router)
+server.use('/categories',categoriesRouters.router)
+server.use('/brands',brandsRouters.router)
+server.use('/users',usersRouters.router)
 server.use('/auth',authRouters.router)
-server.use('/cart',isAuth(),cartRouters.router)
-server.use('/orders',isAuth(),ordersRouters.router)
+server.use('/cart',cartRouters.router)
+server.use('/orders',ordersRouters.router)
+// server.use('/orders',isAuth(),ordersRouters.router)
 
 passport.use('local',new LocalStrategy(
    
