@@ -11,14 +11,19 @@
     ],
 
     
-  "rewrites":[ { "source": "/(.*)", "destination": "/" }],
-    "redirects": [
+ 
+    "rewrites": [
+    {
+      "source": "/(.*)",
+      "missing": [
         {
-          "source": "/(.*)",
-          "destination": "/"
+          "type": "cookie",
+          "key": "auth_token"
         }
-      ]
-    
+      ],
+      "destination": "/"
+    }
+  ]
     
 
   
