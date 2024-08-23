@@ -9,17 +9,8 @@
         "use": "@vercel/static"
       }
     ],
-    
-     "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }] ,
+
+    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }] 
   
-    "rewrites": [{ "source": "/(.*)", "destination": "index.js" },
-    { "source": "/products(.*)", "destination": "index.js" },
-    { "source": "/categories(.*)", "destination": "index.js" },
-    { "source": "/brands(.*)", "destination": "index.js" },
-    { "source": "/users(.*)", "destination": "index.js" },
-    { "source": "/auth(.*)", "destination": "index.js" },
-    { "source": "/cart(.*)", "destination": "index.js" },
-    { "source": "/orders(.*)", "destination": "index.js" }
-    
-]
+
   }
