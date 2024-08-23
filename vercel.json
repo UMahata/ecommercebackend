@@ -12,7 +12,7 @@
 
     
   
-   "routes":[
+   "rewrites":[
     {
         "src":"/products",
         "dest":"index.js"
