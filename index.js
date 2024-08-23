@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const { createProduct } = require('./controller/Product')
@@ -29,6 +30,7 @@ const { User } = require('./model/User')
 const crypto = require("crypto");
 const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common')
 const path = require('path')
+const { env } = require('process');
 
 
 
@@ -141,7 +143,7 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
 main().catch(err=>console.log(err))
 
 async function main(){
-    await mongoose.connect('mongodb+srv://ecommerce:rc8116097789@cluster0.dr7kl.mongodb.net/ecommerce2?retryWrites=true&w=majority&appName=Cluster0');
+    await mongoose.connect(process.env.mongodURL);
     // await mongoose.connect('mongodb://localhost:27017/ecommerce');
     console.log("database connected")
   
