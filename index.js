@@ -55,7 +55,11 @@ server.use(session({
 server.use(passport.authenticate('session'));
   
 
-server.use(cors({exposedHeaders:['X-Total-Count']}))
+server.use(cors({exposedHeaders:['X-Total-Count'],
+  origin: ['https://ecommercebackend-alpha.vercel.app/'],
+  methods: ["POST","GET","PUT","PATCH","DELETE"],
+  credentials:true
+}))
 server.use(express.json())
 server.use('/products',isAuth(),productRouters.router)
 server.use('/categories',isAuth(),categoriesRouters.router)
