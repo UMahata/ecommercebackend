@@ -145,7 +145,7 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
 main().catch(err=>console.log(err))
 
 async function main(){
-    await mongoose.connect(process.env.mongodURL);
+    await mongoose.connect(process.env.MONGOURL);
     
     console.log("database connected")
   
