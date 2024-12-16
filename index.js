@@ -35,24 +35,24 @@ const { env } = require('process');
 
 
 
-//jwt options
+
 const opts = {}
 opts.jwtFromRequest = cookieExtractor
 opts.secretOrKey = SECRET_KEY;
 
 
 
-// midlleware for post products
 
+server.use(cors({exposedHeaders:['X-Total-Count']}))
 server.use(express.static(path.resolve(__dirname,'build')))
 server.use(cookieParser())
 server.use(session({
     secret: 'keyboard cat',
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
+    resave: false, 
+    saveUninitialized: false, 
   }));
  
-  server.use(passport.authenticate('session'));
+server.use(passport.authenticate('session'));
   
 
 server.use(cors({exposedHeaders:['X-Total-Count']}))
@@ -116,7 +116,7 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
             return done(null,sanitizeUser(user) );
         } else {
             return done(null, false);
-            // or you could create a new account
+            
         }
     }catch(err){
      
@@ -131,7 +131,7 @@ passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
       return cb(null,{id:user.id,role:user.role} );
     });
   });
-  //this create session variable req.user on being called from
+
   passport.deserializeUser(function(user, cb) {
 
     process.nextTick(function() { 
@@ -146,7 +146,7 @@ main().catch(err=>console.log(err))
 
 async function main(){
     await mongoose.connect(process.env.mongodURL);
-    // await mongoose.connect('mongodb://localhost:27017/ecommerce');
+    
     console.log("database connected")
   
   }

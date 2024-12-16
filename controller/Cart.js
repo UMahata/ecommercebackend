@@ -31,7 +31,7 @@ exports.deleteFromCart = async(req,res)=>{
    
    try{
     const deletedPost = await Cart.findOneAndDelete({ product: id })
-       console.log(id)
+       
    
        res.status(200).json('product deleted')
    }catch(err){

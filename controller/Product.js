@@ -15,6 +15,8 @@ exports.createProduct = async(req,res)=>{
 exports.fetchAllProducts = async(req,res)=>{
   let query = Product.find({deleted:{$ne:true}})
   let totalProductsQuery = Product.find({deleted:{$ne:true}})
+  console.log(req.query.category);
+  
 
     if(req.query.category){
         query = query.find({category:req.query.category})

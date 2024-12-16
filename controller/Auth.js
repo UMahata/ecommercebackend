@@ -2,10 +2,12 @@ const { User } = require("../model/User");
 const crypto = require("crypto");
 const { sanitizeUser } = require("../services/common");
 const jwt = require("jsonwebtoken");
+const { log } = require("console");
 const SECRET_KEY = "SECRET_KEY";
 
 exports.createUser = async (req, res) => {
   try {
+    
     const salt = crypto.randomBytes(16);
     crypto.pbkdf2(
       req.body.password,
@@ -41,6 +43,8 @@ exports.createUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
      const user = req.user
+     console.log('called');
+     
     res
     .cookie("jwt",req.user.token, {
       expires: new Date(Date.now() + 3600000),
