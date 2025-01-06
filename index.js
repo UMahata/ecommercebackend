@@ -94,7 +94,7 @@ passport.use('local',new LocalStrategy(
               return done(null,false,{message:'invalid credentials'})
             }
 
-            const token =  jwt.sign(sanitizeUser(user), SECRET_KEY);
+           
 
             done(null,{id:user.id,role:user.role})
           
@@ -112,10 +112,10 @@ passport.use('local',new LocalStrategy(
 
 
 passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
-    console.log({jwt_payload})
+ 
     try{
         const user = await User.findById(jwt_payload.id)
-        console.log("first",jwt_payload.id)
+       
         if (user) {
             return done(null,sanitizeUser(user) );
         } else {

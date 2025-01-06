@@ -19,7 +19,7 @@ exports.createUser = async (req, res) => {
         const user = new User({ ...req.body, password: hashedPassword, salt });
 
         const response = await user.save();
-        const token = jwt.sign(sanitizeUser(response), SECRET_KEY);
+        
         req.login(sanitizeUser(response), (err) => {
           if (err) {
             res.status(400).json(err);
